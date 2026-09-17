@@ -2,14 +2,19 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import joblib
+from pathlib import Path
+
 st.set_page_config(page_title="Mental Health Score Predictor", layout="centered")
 
-# 1. Model load karein
+BASE_DIR = Path(__file__).resolve().parent
+
 @st.cache_resource
 def load_data():
-    return joblib.load('mental_health_model.pkl')
+    model_path = BASE_DIR / "mental_health_model.pkl"
+    return joblib.load(model_path)
 
 data = load_data()
+
 model = data['model']
 top_countries = data['top_countries']
 
@@ -66,5 +71,5 @@ if submit_btn:
 
     prediction = model.predict(input_data)[0]
 
-    st.success(f"Estimated Mental Health Score: **{prediction:.2f}**")
+    st.success(f"Estimated Mental Health Score:    **{prediction:.2f}**")
     
