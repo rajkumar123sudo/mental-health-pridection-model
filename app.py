@@ -26,7 +26,7 @@ with st.form("prediction_form"):
     st.subheader("Demographics & Basic Info")
     col1, col2 = st.columns(2)
     with col1:
-        age = st.number_input("Age", min_value=10, max_value=80, value=20)
+        age = st.number_input("Age", min_value=01, max_value=80,value=18)
         gender = st.selectbox("Gender", ["Male", "Female", "Other"])
         academic_level = st.selectbox("Academic Level", ["High School", "Undergraduate", "Graduate", "Postgraduate"])
     with col2:
@@ -71,5 +71,14 @@ if submit_btn:
 
     prediction = model.predict(input_data)[0]
 
-    st.success(f"Estimated Mental Health Score:    **{prediction:.2f}**")
-    
+    st.divider()
+st.subheader("📊 Prediction Result")
+
+st.metric(
+    label="Mental Health Score",
+    value=f"{prediction:.2f}"
+)
+
+st.info(
+    "This is a machine-learning prediction based on the information provided."
+)
